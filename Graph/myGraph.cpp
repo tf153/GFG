@@ -3,6 +3,7 @@
 #include <list>
 #include <queue>
 #include <stack>
+#include <vector>
 using namespace std;
 template <typename T>
 class Graph
@@ -78,6 +79,23 @@ public:
         }
         return;
     }
+    void kruskals()
+    {
+        int n = adjlist.size();
+        map<T, T> parent;
+        map<T, int> rank;
+        vector<pair<int, pair<T, T>>> edges;
+        for (pair<T, list<pair<T, int>>> p : adjlist)
+        {
+            parent[p.first] = p.first;
+            rank[p.first] = 0;
+            for (pair<T, int> v : u)
+            {
+                edges.push_back({v.second, {p.first, v.first}});
+            }
+        }
+        sort(edges.begin(), edges.end());
+    }
 };
 int main()
 {
@@ -123,6 +141,7 @@ int main()
         g.addEdge('3', '4', 9, 1);
         g.addEdge('5', '4', 10, 1);
         g.addEdge('7', '6', 1, 1);
+        g.kruskals();
     }
     return 0;
 }
