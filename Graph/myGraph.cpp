@@ -4,6 +4,7 @@
 #include <queue>
 #include <stack>
 #include <vector>
+#include <set>
 using namespace std;
 template <typename T>
 class Graph
@@ -89,14 +90,73 @@ public:
         {
             parent[p.first] = p.first;
             rank[p.first] = 0;
-            for (pair<T, int> v : u)
+            for (pair<T, int> v : p)
             {
                 edges.push_back({v.second, {p.first, v.first}});
             }
         }
         sort(edges.begin(), edges.end());
+        set<pair<pair<T, T>, int>> MST;
         for (pair<int, pair<T, T>> p : edges)
         {
+            if (MST.size == n - 1)
+                break;
+            if (parent[p.second.first] != parent[p.second.second])
+            {
+                MST.insert({{p.second.first, p.second.first}, p.first});
+                if (parent[p.second.first] == p.second.first)
+                {
+                    if (parent[p.second.second] == p.second.second)
+                    {
+                        if (rank[p.second.first] == rank[p.second.second])
+                        {
+                            parent[p.second.second] = p.second.first;
+                            rank[p.second.first]++;
+                        }
+                        else
+                        {
+                            if (rank[p.second.first] > rank[p.second.second])
+                            {
+                                parent[p.second.second] = p.second.first;
+                            }
+                            else
+                            {
+                                parent[p.second.first] = p.second.second;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        parent[p.second.first] = p.second.second;
+                    }
+                }
+                else
+                {
+                    if (parent[p.second.second] == p.second.second)
+                    {
+                        parent[p.second.second] = p.second.first;
+                    }
+                    else
+                    {
+                        if (rank[p.second.first] == rank[p.second.second])
+                        {
+                            parent[p.second.second] = p.second.first;
+                            rank[p.second.first]++;
+                        }
+                        else
+                        {
+                            if (rank[p.second.first] > rank[p.second.second])
+                            {
+                                parent[p.second.second] = p.second.first;
+                            }
+                            else
+                            {
+                                parent[p.second.first] = p.second.second;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 };
