@@ -95,6 +95,9 @@ public:
             }
         }
         sort(edges.begin(), edges.end());
+        for (pair<int, pair<T, T>> p : edges)
+        {
+        }
     }
 };
 int main()
