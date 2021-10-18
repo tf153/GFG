@@ -1,0 +1,17 @@
+step1: initializde the lock boolean =false
+step2: infer reder is accessing or writer is accesing 
+ste3: if (reader):
+    if(lock==false):
+        lock=true;
+        functionalities......
+        lock=false;
+    else:
+        wait;
+step4: if(writer):
+    if(lock==false):
+        lock=true;
+        functionalities......
+        lock=false;
+    else:
+        wait;
+end;
